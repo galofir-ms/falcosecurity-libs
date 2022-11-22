@@ -1266,12 +1266,11 @@ cgroups_error:
 						if(sb_magic == PPM_OVERLAYFS_SUPER_MAGIC)
 						{
 							struct dentry **upper_dentry;
-							struct inode **lower_inode;
 
+							// Pointer arithmetics due to unexported ovl_inode struct
 							upper_dentry = (struct dentry **)((char *)exe_file->f_inode + sizeof(struct inode));
-							lower_inode = (struct inode **)((char *)upper_dentry + sizeof(struct dentry *));
 
-							if(!*lower_inode && *upper_dentry)
+							if(*upper_dentry)
 							{
 								exe_upper_layer = true;
 							}
@@ -6126,12 +6125,11 @@ cgroups_error:
 					if(sb_magic == PPM_OVERLAYFS_SUPER_MAGIC)
 					{
 						struct dentry **upper_dentry;
-						struct inode **lower_inode;
 
+						// Pointer arithmetics due to unexported ovl_inode struct
 						upper_dentry = (struct dentry **)((char *)exe_file->f_inode + sizeof(struct inode));
-						lower_inode = (struct inode **)((char *)upper_dentry + sizeof(struct dentry *));
 
-						if(!*lower_inode && *upper_dentry)
+						if(*upper_dentry)
 						{
 							exe_upper_layer = true;
 						}
