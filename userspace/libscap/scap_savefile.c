@@ -379,7 +379,7 @@ int32_t scap_write_proclist_entry_bufs(scap_t *handle, scap_dumper_t *d, struct 
 	//
 	// NB: new fields must be appended
 	//
-	*len = (uint32_t)(sizeof(uint32_t) + // len
+	len = (uint32_t)(sizeof(uint32_t) + // len
 			  sizeof(uint64_t) + // tid
 			  sizeof(uint64_t) + // pid
 			  sizeof(uint64_t) + // ptid
@@ -410,7 +410,7 @@ int32_t scap_write_proclist_entry_bufs(scap_t *handle, scap_dumper_t *d, struct 
 			  sizeof(uint64_t) + // cap_permitted
 			  sizeof(uint64_t) + // cap_effective
 			  sizeof(uint8_t)); // exe_upper_layer
-	if(scap_dump_write(d, len, sizeof(uint32_t)) != sizeof(uint32_t) ||
+	if(scap_dump_write(d, &len, sizeof(uint32_t)) != sizeof(uint32_t) ||
 		    scap_dump_write(d, &(tinfo->tid), sizeof(uint64_t)) != sizeof(uint64_t) ||
 		    scap_dump_write(d, &(tinfo->pid), sizeof(uint64_t)) != sizeof(uint64_t) ||
 		    scap_dump_write(d, &(tinfo->ptid), sizeof(uint64_t)) != sizeof(uint64_t) ||
